@@ -1,0 +1,76 @@
+<%= raise "hello" %>
+
+  <div class="main">
+    <div class="main-inner">
+      <div class="container">
+
+<h1><a href="./kb_index.html">The KB</a></h1>
+<div class="search">
+  <div class="row-fluid">
+
+    <div id="sidebar" class="span4">
+
+      <div class="widget">
+        <header class="widget-header">
+          <i class="fa fa-list-alt"></i>
+          <h3>Search KB</h3>
+        </header> <!-- /widget-header -->
+        <div class="widget-content">
+          <form action="/certifications/search" class="form-inline" id="search-form" method="get">
+            <div class="row-fluid">
+              <fieldset class="span6">
+                <input ng-model="query" name="query" placeholder="Search..." type="text" value=""/>
+              </fieldset>
+              <select ng-model="orderProp" class="span6 pull-right">
+                <option value="name">Alphabetical</option>
+                <option value="updated_at">Newest</option>
+                <option value="-updated_at">Oldest</option>
+              </select>
+            </div>
+          </form>
+
+          <div class='sfContentBlock'>
+            <h4>Common Searches by Tags</h4> <ul> <li><a href="./kb_index_card_printer.html">Card Printer</a></li> <li><a href="./kb_index_cms.html">CMS</a></li> <li><a href="./kb_index_kps.html">KPS</a></li> </ul>
+          </div>
+
+        </div> <!-- /widget-content -->
+      </div> <!-- /widget -->
+    </div> <!-- /sidebar -->
+
+    <div id="content" class="span8">
+      <section class="search-results">
+        <ol>
+          <li ng-repeat="post in posts | filter:query | orderBy:orderProp">
+            <header>
+              <h4>
+                <a href="#">{{post.title}}</a>
+              </h4>
+              <p class="post-info">
+                  By Jeremy Perez
+                   — August 18, 2014
+              </p>
+            </header>
+            <p>
+              {{post.body}}
+            </p>
+              <a class="post-link" href="#">Full Article</a>
+          </li>
+        </ol>
+        <div class="row-fluid">
+          <h3 class="span7">Can't find what you're looking for? <a href="#">Click here to add a post!</a></h3>
+        </div>
+      </section>
+    </div><!-- /content -->
+  </div>
+
+  <div class="pagination-bar">
+    <div class="pagination">
+      <ul class="pagination pagination"><li class="prev disabled"><span>&#8592; Previous</span></li> <li class="active"><span>1</span></li> <li><a rel="next" href="/certifications/search?certification_type_id=&amp;page=2&amp;query=&amp;state=">2</a></li> <li><a href="/certifications/search?certification_type_id=&amp;page=3&amp;query=&amp;state=">3</a></li> <li><a href="/certifications/search?certification_type_id=&amp;page=4&amp;query=&amp;state=">4</a></li> <li><a href="/certifications/search?certification_type_id=&amp;page=5&amp;query=&amp;state=">5</a></li> <li><a href="/certifications/search?certification_type_id=&amp;page=6&amp;query=&amp;state=">6</a></li> <li><a href="/certifications/search?certification_type_id=&amp;page=7&amp;query=&amp;state=">7</a></li> <li><a href="/certifications/search?certification_type_id=&amp;page=8&amp;query=&amp;state=">8</a></li> <li><a href="/certifications/search?certification_type_id=&amp;page=9&amp;query=&amp;state=">9</a></li> <li class="disabled"><a href="#">&hellip;</a></li> <li><a href="/certifications/search?certification_type_id=&amp;page=12982&amp;query=&amp;state=">12982</a></li> <li><a href="/certifications/search?certification_type_id=&amp;page=12983&amp;query=&amp;state=">12983</a></li> <li class="next"><a rel="next" href="/certifications/search?certification_type_id=&amp;page=2&amp;query=&amp;state=">Next &#8594;</a></li></ul>
+    </div>
+  </div>
+
+</div><!-- /search -->
+
+      </div> <!-- /container -->
+    </div> <!-- /main-inner -->
+  </div> <!-- /main -->

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <title>KbAngular</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600">
+  <link href="http://kps.qa1.kalkomey.com/assets/vendor-07f0d6c8403a2556b36974d1f99b2e76.css" media="all" rel="stylesheet" />
+  <link href="http://kps.qa1.kalkomey.com/assets/application-dc7cacf34af270bc9155f701f735155c.css" media="all" rel="stylesheet" />
+  <meta content="authenticity_token" name="csrf-param" />
+  <meta content="71VPmlRzRtQ85sKeKLtya7Eae9AzJw0atybIOTYetlM=" name="csrf-token" />
+
+  <script src="http://kps.qa1.kalkomey.com/assets/application-e8420d45fb9731950a72d6d7803e7c9d.js"></script>
+  <script src="http://kps.qa1.kalkomey.com/assets/certifications-6b0538ae9b084299db060b354c43b097.js"></script>
+
+</head>
+<body>
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="fa fa-bar"></span>
+          <span class="fa fa-bar"></span>
+          <span class="fa fa-bar"></span>
+        </a>
+        <a class="brand" href="/"><img alt="Kalkomey Product Suite" src="http://kps.qa1.kalkomey.com/assets/kps_logo-17d4df49ac01bc8f218ad89899168314.png" /></a>
+
+        <div class="nav-collapse">
+          <ul class="nav pull-right">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-cog"></i>
+                    Admin
+                    <b class="caret"></b>
+                  </a>
+
+                  <ul class="dropdown-menu">
+                      <li><a href="/certification_collections">Manage Collections</a></li>
+                      <li><a href="/users">Manage Users</a></li>
+                      <li><a href="/certifications/activity">Certification Activity</a></li>
+                  </ul>
+                </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-user"></i>
+                  Jeremy Perez
+                  <b class="caret"></b>
+                </a>
+
+                <ul class="dropdown-menu">
+                  <li><a href="/users/84">My Profile</a></li>
+                  <li><a href="/logout">Logout</a></li>
+                </ul>
+              </li>
+          </ul>
+        </div> <!--/.nav-collapse -->
+      </div> <!-- /container -->
+    </div> <!-- /navbar-inner -->
+  </div> <!-- /navbar -->
+
+  <%= yield %>
+
+  <div class="extra">
+    <div class="extra-inner">
+      <div class="container">
+        <div class="row">
+            <div class="span6">
+              <h4>About Us</h4>
+              <p>Kalkomey is the official provider of recreational safety education materials for North America. <a rel="external" title="Kalkomey's press resources" href="http://kalkomey.com/about/press-resources/releases/">View press releases.</a></p>
+              <p>Kalkomey Product Suite is produced by <a href="http://kalkomey.com/">Kalkomey Enterprises, Inc.</a></p>
+              <address>
+              14086 Proton Road<br>
+              Dallas, Texas 75244<br>
+              800-830-2268<br>
+              <a href="mailto:info@kalkomey.com">info@kalkomey.com</a>
+              </address>
+            </div> <!-- /span6 -->
+
+            <div class="span3">
+              <h4>Customer Support</h4>
+              <p>Our office hours are 8:30 a.m. to 5:30 p.m. Central, Monday through Friday, with extended hours during late spring and summer.</p>
+              <ul>
+                <li><strong>phone:</strong> 800-830-2268</li>
+                <li><strong>e-mail:</strong> <a href="mailto:kps-support@kalkomey.com?subject=KPS%20Support%20Inquiry">KPS Customer Support</a></li>
+              </ul>
+            </div> <!-- /span3 -->
+          </div> <!-- /row -->
+      </div> <!-- /container -->
+    </div> <!-- /extra-inner -->
+  </div> <!-- /extra -->
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="container">
+        &copy; 2014 <a href="http://kalkomey.com">Kalkomey Enterprises, Inc.</a>
+      </div> <!-- /container -->
+    </div> <!-- /footer-inner -->
+  </footer>
+</body>
+
+</html>
