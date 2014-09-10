@@ -1,0 +1,97 @@
+  <div class="main">
+    <div class="main-inner">
+      <div class="container">
+
+<h1><a ui-sref="home">The KB</a></h1>
+<div class="search">
+  <div class="row-fluid">
+
+    <div id="sidebar" class="span4">
+
+      <div class="widget">
+        <header class="widget-header">
+          <a ui-sref="home"><i class="fa fa-search"></i>
+          <h3>Return to KB Search</h3></a>
+        </header> <!-- /widget-header -->
+        <div class="widget-content">
+
+          <div class='sfContentBlock'>
+            <h4>
+              <i class="fa fa-tags"></i> Commonly Used Tags
+            </h4>
+            <ul class="list-unstyled">
+              <li><a href=""><span class="badge badge-info">payment</span></a></li>
+              <li><a href=""><span class="badge badge-info">field day</span></a></li>
+              <li><a href=""><span class="badge badge-info">video</span></a></li>
+            </ul>
+          </div>
+
+        </div> <!-- /widget-content -->
+      </div> <!-- /widget -->
+    </div> <!-- /sidebar -->
+
+    <div id="content" class="span8">
+      <div class="full-post">
+
+        <ol class="breadcrumb">
+          <li>
+            <a ui-sref="home">Issues</a>
+          </li>
+          <li class="active">Create</li>
+        </ol>
+
+        <form>
+        <!-- Form Name -->
+        <legend>Create Post</legend>
+
+        <!-- Select Basic -->
+        <div class="input-group row-fluid">
+          <label class="span2 control-label" for="selectbasic">Category</label>
+          <div class="span6">
+            <select id="selectbasic" name="selectbasic" class="form-control">
+              <option value="0">Choose Category..</option>
+              <option value="1">Login</option>
+              <option value="2">Payment</option>
+               <option value="3">Video</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="input-group row-fluid">
+          <label class="span2 control-label" for="Title">Title</label>
+          <div class="span6">
+          <input id="Title" name="Title" type="text" placeholder="" class="form-control input-md">
+
+          </div>
+        </div>
+
+        <!-- Textarea -->
+        <div class="input-group row-fluid">
+          <label class="span2 control-label" for="textarea">Body</label>
+          <div class="span6">
+            <textarea id="textarea" name="textarea"></textarea>
+          </div>
+        </div>
+
+        <!-- Text input for Tags-->
+        <div class="input-group row-fluid">
+          <label class="span2 control-label" for="Title">Add Tags</label>
+          <div class="span6">
+          <input id="Title" name="Title" type="text" data-role="tagsinput" placeholder="Enter each tag here separated by a comma." class="form-control input-md">
+
+          </div>
+        </div>
+
+        <a href="#" class="btn btn-primary">Publish</a>
+        </form>
+
+      </div>
+    </div><!-- /content -->
+  </div>
+
+</div><!-- /search -->
+
+      </div> <!-- /container -->
+    </div> <!-- /main-inner -->
+  </div> <!-- /main -->
