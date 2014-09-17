@@ -6,19 +6,37 @@ module Api
 
       def index
         # @posts = Post.all
-        respond_with(Post.all.order("id DESC"))
+        @posts = Post.all.order("id DESC")
+        # @posts.each do |post|
+        #   raise post.category
+        # end
+        respond_to do |format|
+          format.json {render :json => @posts.to_json(:include => {:tags => {:only => :name}, :category => {:only => :name}})}
+        end
       end
 
       def show
-        respond_with(Post.find(params[:id]))
+        @post = Post.find(params[:id])
+
+
+        # @post["tags"] = 3
+        # @post.tags.each do |tag|
+        #   @post["tags"] << tag
+        # end
+        respond_to do |format|
+          format.json {render :json => @post.to_json(:include => {:tags => {:only => :name}})}
+        end
+      end
+
+      def new
+        # default: render 'new' template
+        respond_with(Post.new)
       end
 
       def create
-        @post = Post.new(post_params)
-        if @post.save
-          respond_to do |format|
-            format.json {render :json => @post}
-          end
+        @post = Post.create!(post_params)
+        respond_to do |format|
+          format.json {render :json => @post}
         end
       end
 
