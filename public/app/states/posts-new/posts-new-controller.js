@@ -22,8 +22,8 @@ angular
     });
 
     post.posts_tags_attributes = copy;
-    
-    Post.post(post).then(function(response){
+
+    Post.post({ post: post }).then(function(response){
       $state.go('postsShow', { id: response.id })
     });
 
@@ -43,8 +43,6 @@ angular
    * When tags are added, check for a pre-existing tag and copy the id.
    */
   $scope.tagAdded = function(tag){
-    Restangular.stripRestangular(tag);
-
     if (!tag.id) {
       var existing = _.findWhere(tags, { name: tag.name });
       existing && (tag.id = existing.id);
