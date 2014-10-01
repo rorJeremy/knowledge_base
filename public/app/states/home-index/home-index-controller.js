@@ -1,12 +1,15 @@
 angular
 .module('KnowledgeBase')
-.controller('HomeIndexController', function($scope, $http) {
-  $http.get('http://localhost:3000/api/v1/posts.json').success(function(data) {
-    $scope.posts = data;
+.controller('HomeIndexController', function($scope, Restangular) {
+
+  var basePosts = Restangular.all('posts');
+  basePosts.getList().then(function(posts) {
+    $scope.posts = posts;
   });
 
-  $http.get('http://localhost:3000/api/v1/categories.json').success(function(dataa) {
-    $scope.categories = dataa;
+  var baseCategories = Restangular.all('categories');
+  baseCategories.getList().then(function(categories) {
+    $scope.categories = categories;
   });
 
   $scope.tag = function(message) {

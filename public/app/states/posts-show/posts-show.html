@@ -52,7 +52,7 @@
           </p>
 
           <p>
-            <i class="fa fa-archive"></i> <b>Category:</b> <em>{{post.category}}  </em>
+            <i class="fa fa-archive"></i> <b>Categoryy:</b> <em>{{post.category.name}}  </em>
           </p>
           <p>
             <i class="fa fa-eye"></i> <b>Times Viewed:</b> 250
@@ -64,13 +64,10 @@
 
         <div class="row-fluid">
           <fieldset class="input-group span3">
-            <a href="#" class="btn btn-info btn-small btn-block">Edit</a>
+            <a ui-sref="postsEdit({ id: post.id })" class="btn btn-info btn-small btn-block">Edit</a>
           </fieldset>
           <fieldset class="input-group span3">
-            <a href="#" onclick="javascript:return confirm('Are you sure you want to cancel this card print request?')" class="btn btn-danger btn-small btn-block">Remove</a>
-          </fieldset>
-          <fieldset class="input-group span3">
-            <a href="#" class="btn btn-primary btn-small btn-block">History</a>
+            <a href="#" ng-click="remove(post)" class="btn btn-danger btn-small btn-block">Remove</a>
           </fieldset>
         </div>
 

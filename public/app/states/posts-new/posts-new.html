@@ -48,7 +48,7 @@
         <div class="input-group row-fluid">
           <label class="span2 control-label" for="selectbasic">Category</label>
           <div class="span6">
-            <select ng-model="articleData.category" ng-options="category.name for category in categories" class="span6">
+            <select ng-model="articleData.post.category_id" ng-options="category.id as category.name for category in categories" class="span6">
               <option value="">Choose Category</option>
             </select>
           </div>
@@ -58,7 +58,7 @@
         <div class="input-group row-fluid">
           <label class="span2 control-label" for="Title">Title</label>
           <div class="span6">
-          <input id="Title" name="Title" type="text" placeholder="" class="form-control input-md" ng-model="articleData.title">
+          <input id="Title" name="Title" type="text" placeholder="" class="form-control input-md" ng-model="articleData.post.title">
 
           </div>
         </div>
@@ -67,7 +67,7 @@
         <div class="input-group row-fluid">
           <label class="span2 control-label" for="textarea">Body</label>
           <div class="span6">
-            <textarea id="textarea" name="textarea" ng-model="articleData.body"></textarea>
+            <textarea id="textarea" name="textarea" ng-model="articleData.post.body"></textarea>
           </div>
         </div>
 
@@ -75,8 +75,9 @@
         <div class="input-group row-fluid">
           <label class="span2 control-label" for="Title">Add Tags</label>
           <div class="span6">
-          <input id="Title" name="Title" type="text" data-role="tagsinput" placeholder="Enter each tag here separated by a comma." class="form-control input-md" ng-model="articleData.tags">
-
+            <tags-input ng-model="articleData.post.posts_tags_attributes" display-property="name" replace-spaces-with-dashes="false">
+              <auto-complete source="loadTags()"></auto-complete>
+            </tags-input>
           </div>
         </div>
         <button type="submit" class="btn btn-primary">Publish</button>

@@ -2,7 +2,7 @@
 
 (function(){
 
-  var app = angular.module('KnowledgeBase', ['ngResource', 'ui.router', 'restangular']);
+  var app = angular.module('KnowledgeBase', ['ngResource', 'ui.router', 'restangular', 'ngTagsInput']);
 
   app.config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
@@ -15,6 +15,16 @@
         url: '/posts/new',
         templateUrl: 'app/states/posts-new/posts-new.html',
         controller: 'PostsNewController'
+      })
+      .state("postsEdit", {
+        url: '/posts/edit/:id',
+        templateUrl: 'app/states/posts-edit/posts-edit.html',
+        controller: 'PostsEditController',
+        resolve: {
+          post: function(Restangular, $stateParams){
+            return Restangular.one('posts', $stateParams.id).get();
+          }
+        }
       })
       .state("postsShow", {
         url: '/posts/:id',
