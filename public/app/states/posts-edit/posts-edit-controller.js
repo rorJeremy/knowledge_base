@@ -2,6 +2,7 @@ angular
 .module('KnowledgeBase')
 .controller('PostsEditController', function($q, $scope, $state, Restangular, post, tags, categories) {
   var removedTags = [];
+  var initialTags = angular.copy(post.tags);
   var initialTagIds = _.pluck(post.tags, 'id')
 
   $scope.post = post;
@@ -23,9 +24,17 @@ angular
       .reject(function(tag){
         return _.contains(initialTagIds, tag.id);
       })
+      .each(function(tag){
+        delete tag.id;
+      })
       .value();
 
     _.each(removedTags, function(tag){
+      if (!tag.association_id) {
+        var association = _(initialTags).findWhere({ id: tag.id })
+        tag.association_id = tag.id;
+      }
+
       copy.push({
         id: tag.association_id,
         _destroy: true
@@ -57,12 +66,20 @@ angular
       existing && (tag.id = existing.id);
     }
 
-    removedTagIds = _.without(removedTagIds, tag.id);
+    if (tag.id) {
+      removedTags = _.reject(removedTags, function(removedTag){
+        return tag.id == removedTag.id;
+      })
+    };
+
+    console.log(removedTags);
   }
 
   $scope.tagRemoved = function(tag){
     if (_.contains(initialTagIds, tag.id)) {
       removedTags.push(tag)
     }
+
+    console.log(removedTags);
   }
 });
