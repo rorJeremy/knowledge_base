@@ -1,46 +1,53 @@
 angular
 .module('KnowledgeBase')
-.controller('PostsNewController', function($scope, $q, $location, Restangular) {
-  $scope.tags = [];
+.controller('PostsNewController', function($q, $scope, $state, Restangular, Post, tags, categories) {
+  $scope.tags = tags;
+  $scope.categories = categories;
 
+  /**
+   * Save the post
+   */
+  $scope.save = function(post) {
 
-  var basePosts = Restangular.all('posts');
+    var copy = angular.copy(post.tags);
 
-  var baseCategories = Restangular.all('categories');
-  baseCategories.getList().then(function(categories) {
-    $scope.categories = categories;
-  });
+    // Transform the tags result depending on existing or new.
+    _.each(copy, function(tag){
+      tag.id
+        ? (tag.tag_id = tag.id)
+        : (tag.tag_attributes = { name: tag.name });
 
-  // we store all the post data from the form in this object
-  $scope.articleData = {};
-
-  $scope.$watchCollection('articleData.post.posts_tags_attributes', function(newCollection){
-    _.each(newCollection, function(item){
-      var existingTag = _.findWhere($scope.tags, { name: item.name });
-      if (existingTag) {
-        item.tag_id = existingTag.id
-        console.log(item, existingTag)
-      }
-      else {
-        item.tag_attributes = { name: item.name };
-      }
+      delete tag.id;
+      delete tag.name;
     });
-  })
 
-  $scope.loadTags = function(){
-    var promise = Restangular.all('tags').getList();
-
-    $scope.tags = promise.$object;
-
-    return promise;
-  }
-
-
-  // function to process the form
-  $scope.processForm = function() {
-    basePosts.post($scope.articleData).then(function(articleData) {
-      $location.path('/posts/' + articleData.id.toString());
+    post.posts_tags_attributes = copy;
+    
+    Post.post(post).then(function(response){
+      $state.go('postsShow', { id: response.id })
     });
+
+    return false;
   };
 
+  /**
+   * Provides a promise that resolves with tags to the autocompleter.
+   */
+  $scope.tagSource = function(){
+    var deferred = $q.defer();
+    deferred.resolve($scope.tags);
+    return deferred.promise;
+  }
+
+  /**
+   * When tags are added, check for a pre-existing tag and copy the id.
+   */
+  $scope.tagAdded = function(tag){
+    Restangular.stripRestangular(tag);
+
+    if (!tag.id) {
+      var existing = _.findWhere(tags, { name: tag.name });
+      existing && (tag.id = existing.id);
+    }
+  }
 });
