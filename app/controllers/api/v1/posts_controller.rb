@@ -16,16 +16,7 @@ module Api
       end
 
       def show
-        @post = Post.find(params[:id])
-
-
-        # @post["tags"] = 3
-        # @post.tags.each do |tag|
-        #   @post["tags"] << tag
-        # end
-        respond_to do |format|
-          format.json {render :json => @post.to_json(:include => {:tags => {:only => :name}})}
-        end
+        @post = Post.includes(posts_tags: :tag).find(params[:id])
       end
 
       def new
@@ -62,7 +53,7 @@ module Api
       private
         def post_params
           params.required(:post).permit(:title, :body, :category_id,
-            posts_tags_attributes: [:tag_id, tag_attributes: [:name]])
+            posts_tags_attributes: [:id, :_destroy, :tag_id, tag_attributes: [:name]])
         end
     end
   end

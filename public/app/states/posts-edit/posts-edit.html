@@ -40,7 +40,7 @@
           <li class="active">Edit</li>
         </ol>
 
-        <form novalidate class="simple-form" ng-submit="save()">
+        <form novalidate class="simple-form" ng-submit="save(post)">
         <!-- Form Name -->
         <legend>Edit Article</legend>
 
@@ -75,8 +75,8 @@
         <div class="input-group row-fluid">
           <label class="span2 control-label" for="Title">Add Tags</label>
           <div class="span6">
-            <tags-input ng-model="post.tags" display-property="name" replace-spaces-with-dashes="false">
-              <auto-complete source="loadTags()"></auto-complete>
+            <tags-input ng-model="post.tags" display-property="name" replace-spaces-with-dashes="false" on-tag-added="tagAdded($tag)" on-tag-removed="tagRemoved($tag)">
+              <auto-complete source="tagSource()"></auto-complete>
             </tags-input>
           </div>
         </div>

@@ -30,7 +30,7 @@
         controller: 'PostsEditController',
         resolve: {
           post: function($stateParams, Post){
-            return Post.one($stateParams.id).get();
+            return Post.get($stateParams.id);
           },
           tags: function(Tag) {
             return Tag.getList();

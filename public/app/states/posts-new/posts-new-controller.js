@@ -48,4 +48,14 @@ angular
       existing && (tag.id = existing.id);
     }
   }
+
+  /**
+   * When tags are added, check for a pre-existing tag and copy the id.
+   */
+  $scope.tagAdded = function(tag){
+    if (!tag.id) {
+      var existing = _.findWhere(tags, { name: tag.name });
+      existing && (tag.id = existing.id);
+    }
+  }
 });

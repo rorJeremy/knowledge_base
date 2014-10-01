@@ -1,92 +1,68 @@
 angular
 .module('KnowledgeBase')
-.controller('PostsEditController', function($scope, $q, $location, Restangular, post) {
+.controller('PostsEditController', function($q, $scope, $state, Restangular, post, tags, categories) {
+  var removedTags = [];
+  var initialTagIds = _.pluck(post.tags, 'id')
 
+  $scope.post = post;
+  $scope.tags = tags;
+  $scope.categories = categories;
 
-  console.log("helloooooooooooo");
-  console.log(post);
-  console.log("worldddddddddddd");
-  var originalPost = post;
-  var originalTags = _.pluck(post.tags, "name");
-  console.log("originaltags");
-  console.log(originalTags);
+  /**
+   * Save the post
+   */
+  $scope.save = function(post) {
 
-  $scope.post = Restangular.copy(originalPost);
-
-
-
-  // $scope.tags = [];
-
-
-  var baseCategories = Restangular.all('categories');
-  baseCategories.getList().then(function(categories) {
-    $scope.categories = categories;
-  });
-
-
-  // $scope.$watchCollection('post.tags', function(newCollection){
-  //   _.each(newCollection, function(item){
-  //     console.log("scope.tags:::");
-  //     console.log($scope.tags);
-  //     var existingTag = _.findWhere($scope.tags, { name: item.name });
-  //     if (existingTag) {
-  //       item.tag_id = existingTag.id
-  //       console.log("this is aaaaa");
-  //       console.log(item, existingTag);
-  //       console.log("existing taggggg");
-  //     }
-  //     else {
-  //       console.log("item at first: ");
-  //       console.log(item);
-  //       console.log("and then item turns into: ");
-  //       item.tags = { name: item.name };
-  //       console.log(item);
-  //     }
-  //   });
-  // })
-
-  $scope.loadTags = function(){
-    var promise = Restangular.all('tags').getList();
-    promise.then(function(tags){
-      $scope.tags = tags;
-
-
-      $scope.$watchCollection('post.tags', function(newCollection){
-        _.each(newCollection, function(item){
-          console.log("scope.tags:::");
-          console.log($scope.tags);
-          var existingTag = _.findWhere($scope.tags, { name: item.name });
-          if (existingTag) {
-            item.tag_id = existingTag.id
-            console.log("this is aaaaa");
-            console.log(item, existingTag);
-            console.log("existing taggggg");
-          }
-          else {
-            console.log("item at first: ");
-            console.log(item);
-            console.log("and then item turns into: ");
-            item.tag_attributes = { name: item.name };
-            console.log(item);
-          }
-        });
+    var copy =
+     _.chain(post.tags)
+      .each(function(tag){
+        tag.id
+          ? (tag.tag_id = tag.id)
+          : (tag.tag_attributes = { name: tag.name });
       })
+      .reject(function(tag){
+        return _.contains(initialTagIds, tag.id);
+      })
+      .value();
 
+    _.each(removedTags, function(tag){
+      copy.push({
+        id: tag.association_id,
+        _destroy: true
+      })
+    });
 
-    })
+    post.posts_tags_attributes = copy;
 
-    return promise;
-  }
-
-
-  $scope.save = function() {
-    console.log("hereeee");
-    console.log($scope.post);
-    console.log("and hereeeee");
-    console.log($scope.post.posts_tags_attributes);
-    $scope.post.customPUT({post: $scope.post}).then(function() {
-      $location.path('/home');
+    $scope.post.customPUT({ post: post }).then(function(response) {
+      $state.go('postsShow', { id: response.id })
     });
   };
 
+  /**
+   * Provides a promise that resolves with tags to the autocompleter.
+   */
+  $scope.tagSource = function(){
+    var deferred = $q.defer();
+    deferred.resolve($scope.tags);
+    return deferred.promise;
+  }
+
+  /**
+   * When tags are added, check for a pre-existing tag and copy the id.
+   */
+  $scope.tagAdded = function(tag){
+    if (!tag.id) {
+      var existing = _.findWhere(tags, { name: tag.name });
+      existing && (tag.id = existing.id);
+    }
+
+    removedTagIds = _.without(removedTagIds, tag.id);
+  }
+
+  $scope.tagRemoved = function(tag){
+    if (_.contains(initialTagIds, tag.id)) {
+      removedTags.push(tag)
+    }
+  }
 });
