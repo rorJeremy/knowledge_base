@@ -7,6 +7,13 @@
   # end
 
 class Post < ActiveRecord::Base
-  has_and_belongs_to_many :tags
+
+  # include Elasticsearch::Model
+  # include Elasticsearch::Model::Callbacks
+
+  has_many :posts_tags
+  has_many :tags, through: :posts_tags
+  accepts_nested_attributes_for :posts_tags, allow_destroy: true
+
   belongs_to :category
 end

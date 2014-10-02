@@ -26,13 +26,13 @@
             </div>
             <div class="row-fluid">
               <select ng-model="orderProp" class="span6">
-                <option value="updated_at">Newest</option>
-                <option value="-updated_at">Oldest</option>
+                <option value="-updated_at">Newest</option>
+                <option value="updated_at">Oldest</option>
               </select>
             </div>
             <div class="row-fluid">
-              <select ng-model="category" ng-options="category.name for category in categories" placeholder="Categories" class="span6">
-                <option value="">Category</option>
+              <select ng-model="category" ng-options="category.name for category in categories" class="span6">
+                <option value="">Choose Category</option>
               </select>
             </div>
 

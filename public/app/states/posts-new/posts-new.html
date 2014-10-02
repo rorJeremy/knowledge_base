@@ -40,19 +40,16 @@
           <li class="active">Create</li>
         </ol>
 
-        <form>
+        <form novalidate class="simple-form" ng-submit="save(post)">
         <!-- Form Name -->
-        <legend>Create Post</legend>
+        <legend>Create Article</legend>
 
         <!-- Select Basic -->
         <div class="input-group row-fluid">
           <label class="span2 control-label" for="selectbasic">Category</label>
           <div class="span6">
-            <select id="selectbasic" name="selectbasic" class="form-control">
-              <option value="0">Choose Category..</option>
-              <option value="1">Login</option>
-              <option value="2">Payment</option>
-               <option value="3">Video</option>
+            <select ng-model="post.category_id" ng-options="category.id as category.name for category in categories" class="span6">
+              <option value="">Choose Category</option>
             </select>
           </div>
         </div>
@@ -61,7 +58,7 @@
         <div class="input-group row-fluid">
           <label class="span2 control-label" for="Title">Title</label>
           <div class="span6">
-          <input id="Title" name="Title" type="text" placeholder="" class="form-control input-md">
+          <input id="Title" name="Title" type="text" placeholder="" class="form-control input-md" ng-model="post.title">
 
           </div>
         </div>
@@ -70,7 +67,7 @@
         <div class="input-group row-fluid">
           <label class="span2 control-label" for="textarea">Body</label>
           <div class="span6">
-            <textarea id="textarea" name="textarea"></textarea>
+            <textarea id="textarea" name="textarea" ng-model="post.body"></textarea>
           </div>
         </div>
 
@@ -78,12 +75,12 @@
         <div class="input-group row-fluid">
           <label class="span2 control-label" for="Title">Add Tags</label>
           <div class="span6">
-          <input id="Title" name="Title" type="text" data-role="tagsinput" placeholder="Enter each tag here separated by a comma." class="form-control input-md">
-
+            <tags-input ng-model="post.tags" display-property="name" on-tag-added="tagAdded($tag)" replace-spaces-with-dashes="false">
+              <auto-complete source="tagSource()"></auto-complete>
+            </tags-input>
           </div>
         </div>
-
-        <a href="#" class="btn btn-primary">Publish</a>
+        <button type="submit" class="btn btn-primary">Publish</button>
         </form>
 
       </div>

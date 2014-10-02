@@ -2,7 +2,7 @@
 
 (function(){
 
-  var app = angular.module('KnowledgeBase', ['ngResource', 'ui.router', 'restangular']);
+  var app = angular.module('KnowledgeBase', ['ngResource', 'ui.router', 'restangular', 'ngTagsInput']);
 
   app.config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
@@ -14,7 +14,31 @@
       .state("postsNew", {
         url: '/posts/new',
         templateUrl: 'app/states/posts-new/posts-new.html',
-        controller: 'PostsNewController'
+        controller: 'PostsNewController',
+        resolve: {
+          tags: function(Tag) {
+            return Tag.getList();
+          },
+          categories: function(Category) {
+            return Category.getList();
+          }
+        }
+      })
+      .state("postsEdit", {
+        url: '/posts/edit/:id',
+        templateUrl: 'app/states/posts-edit/posts-edit.html',
+        controller: 'PostsEditController',
+        resolve: {
+          post: function($stateParams, Post){
+            return Post.get($stateParams.id);
+          },
+          tags: function(Tag) {
+            return Tag.getList();
+          },
+          categories: function(Category) {
+            return Category.getList();
+          }
+        }
       })
       .state("postsShow", {
         url: '/posts/:id',
@@ -31,4 +55,3 @@
   });
 
 })();
-
