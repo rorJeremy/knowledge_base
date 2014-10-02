@@ -26,7 +26,6 @@ module Api
 
       def create
         @post = Post.new(post_params)
-        debugger
         if @post.save
           respond_to do |format|
             format.json {render :json => @post}
@@ -36,7 +35,6 @@ module Api
 
       def update
         @post = Post.find(params[:id])
-        debugger
         respond_to do |format|
           if @post.update(post_params)
             format.json {render :json => @post}
