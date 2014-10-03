@@ -64,13 +64,24 @@
 
         <div class="row-fluid">
           <fieldset class="input-group span3">
-            <a ui-sref="postsEdit({ id: post.id })" class="btn btn-info btn-small btn-block">Edit</a>
+            <a href="#" class="btn btn-success btn-small btn-block"><i class="fa fa-thumbs-o-up"></i> I Approve This</a>
           </fieldset>
           <fieldset class="input-group span3">
-            <a href="#" ng-click="destroy(post)" class="btn btn-danger btn-small btn-block">Remove</a>
+            <a href="#" class="btn btn-info btn-small btn-block"><i class="fa fa-history"></i> History</a>
+          </fieldset>
+          <fieldset class="input-group span3">
+            <a ui-sref="postsEdit({ id: post.id })" class="btn btn-primary btn-small btn-block"><i class="fa fa-pencil-square-o"></i> Edit</a>
+          </fieldset>
+          <fieldset class="input-group span3">
+            <a href="#" ng-click="destroy(post)" class="btn btn-danger btn-small btn-block"><i class="fa fa-trash-o"></i> Remove</a>
           </fieldset>
         </div>
 
+      </div>
+      <div class="row-fluid span9">
+        <h4 class="span6">Was this article helpful to you? </h4>
+        <a href="#" class="btn btn-default btn-small span2">Yes</a>
+        <a href="#" class="btn btn-default btn-small span2">No</a>
       </div>
       <div>
         <h4 class="span9">Not what you were looking for? <a ui-sref="postsNew">Click here to add a article!</a></h4>
