@@ -1,101 +1,59 @@
-  <div class="main">
-    <div class="main-inner">
-      <div class="container">
-
-<h1><a ui-sref="home">The KB</a></h1>
-<div class="search">
-  <div class="row-fluid">
-
-    <div id="sidebar" class="span4">
-
-      <div class="widget">
-        <header class="widget-header">
-          <i class="fa fa-list-alt"></i>
-          <h3>Search KB</h3>
-        </header> <!-- /widget-header -->
-        <div class="widget-content">
-            <div class="row-fluid">
-              <fieldset class="input-group span6">
-                <input ng-model="query.title" name="query" placeholder="Search by Title" type="text" value=""/>
-              </fieldset>
-            </div>
-            <div class="row-fluid">
-              <fieldset class="input-group span6">
-                <input ng-model="tags" name="queryy" placeholder="Search by Tags" type="text" value=""/>
-              </fieldset>
-            </div>
-            <div class="row-fluid">
-              <select ng-model="orderProp" class="span6">
-                <option value="-updated_at">Newest</option>
-                <option value="updated_at">Oldest</option>
-              </select>
-            </div>
-            <div class="row-fluid">
-              <select ng-model="category" ng-options="category.name for category in categories" class="span6">
-                <option value="">Choose Category</option>
-              </select>
-            </div>
-
-          <div class='sfContentBlock'>
-            <h4>
-              <i class="fa fa-tags"></i> Common Searches by Tags
-            </h4>
-            <ul class="list-unstyled">
-              <li><a href=""><span class="badge badge-info">payment</span></a></li>
-              <li><a href=""><span class="badge badge-info">field day</span></a></li>
-              <li><a href=""><span class="badge badge-info">video</span></a></li>
-            </ul>
+<div class="row">
+  <div class="col-sm-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">Search</div>
+      <div class="panel-body">
+        <form>
+          <div class="form-group">
+            <input type="text" name="title" ng-model="query.title" placeholder="Search by Title" class="form-control" />
           </div>
+          <div class="form-group">
+            <input type="text" name="tags" ng-model="tags" placeholder="Search by Tags" class="form-control" />
+          </div>
+          <div class="form-group">
+            <select ng-model="orderProp" class="form-control">
+              <option value="-updated_at">Newest</option>
+              <option value="updated_at">Oldest</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <select ng-model="category" ng-options="category.name for category in categories" class="form-control">
+              <option value="">Choose Category</option>
+            </select>
+          </div>
+        </form>
+      </div>
+    </div>
 
-        </div> <!-- /widget-content -->
-      </div> <!-- /widget -->
-    </div> <!-- /sidebar -->
-
-    <div id="content" class="span8">
-      <section class="search-results">
-        <ol>
-          <li ng-repeat="post in posts | filter:query | filter:tag | filter:{category_id:category.id} | orderBy:orderProp">
-            <header>
-              <h2>
-                <a ui-sref="postsShow({ id: post.id })">{{post.title}}</a>
-              </h2>
-              <p class="post-info">
-                  <b>By Jeremy Perez
-                   — August 18, 2014</b>
-              </p>
-              <p>
-                <i class="fa fa-archive"></i> <b>Category:</b> <em>{{post.category["name"]}}</em>
-              </p>
-              <p>
-                <i class="fa fa-eye"></i> <b>Times Viewed:</b> 250
-              </p>
-              <p>
-                <i class="fa fa-tags"></i> Tags:
-                <span class="badge badge-info" ng-repeat="(name, tag) in post.tags">{{tag["name"]}}</span>
-              </p>
-            </header>
-            <p>
-              <br>
-              {{post.body}}
-            </p>
-              <a ui-sref="postsShow({ id: post.id })">Full Article</a>
-          </li>
-        </ol>
-        <div class="row-fluid">
-          <h3 class="span7">Can't find what you're looking for? <a ui-sref="postsNew">Click here to add a article!</a></h3>
-        </div>
-      </section>
-    </div><!-- /content -->
-  </div>
-
-  <div class="pagination-bar">
-    <div class="pagination">
-      <ul class="pagination pagination"><li class="prev disabled"><span>&#8592; Previous</span></li> <li class="active"><span>1</span></li> <li><a rel="next" href="/certifications/search?certification_type_id=&amp;page=2&amp;query=&amp;state=">2</a></li> <li><a href="/certifications/search?certification_type_id=&amp;page=3&amp;query=&amp;state=">3</a></li> <li><a href="/certifications/search?certification_type_id=&amp;page=4&amp;query=&amp;state=">4</a></li> <li><a href="/certifications/search?certification_type_id=&amp;page=5&amp;query=&amp;state=">5</a></li> <li><a href="/certifications/search?certification_type_id=&amp;page=6&amp;query=&amp;state=">6</a></li> <li><a href="/certifications/search?certification_type_id=&amp;page=7&amp;query=&amp;state=">7</a></li> <li><a href="/certifications/search?certification_type_id=&amp;page=8&amp;query=&amp;state=">8</a></li> <li><a href="/certifications/search?certification_type_id=&amp;page=9&amp;query=&amp;state=">9</a></li> <li class="disabled"><a href="#">&hellip;</a></li> <li><a href="/certifications/search?certification_type_id=&amp;page=12982&amp;query=&amp;state=">12982</a></li> <li><a href="/certifications/search?certification_type_id=&amp;page=12983&amp;query=&amp;state=">12983</a></li> <li class="next"><a rel="next" href="/certifications/search?certification_type_id=&amp;page=2&amp;query=&amp;state=">Next &#8594;</a></li></ul>
+    <div class="panel panel-default">
+      <div class="panel-heading">Commonly Used Tags</div>
+      <div class="panel-body">
+        <ul class="list-inline">
+          <li><a><span class="label label-info">payment</span></a></li>
+          <li><a><span class="label label-info">field day</span></a></li>
+          <li><a><span class="label label-info">video</span></a></li>
+        </ul>
+      </div>
     </div>
   </div>
+  <div class="col-sm-9">
+    <div class="alert alert-info">
+      <strong>Can't find what you're looking for?</strong>
+      <a ui-sref="postsNew">Create an article.</a>
+    </div>
 
-</div><!-- /search -->
-
-      </div> <!-- /container -->
-    </div> <!-- /main-inner -->
-  </div> <!-- /main -->
+    <section class="search-results">
+    <ul class="media-list">
+      <li class="media" ng-repeat="post in posts | filter:query | filter:tag | filter:{category_id:category.id} | orderBy:orderProp">
+        <div class="media-body">
+          <h4 class="media-heading"><a ui-sref="postsShow({ id: post.id })">[{{post.category["name"]}}] {{post.title}}</a></h4>
+          <span>Updated on August 18, 2014</span>
+          <span><i class="fa fa-archive"></i></em>
+          <i class="fa fa-tags"></i> Tags: <span class="badge badge-info" ng-repeat="(name, tag) in post.tags">{{tag["name"]}}</span>
+          <p>{{post.body}}</p>
+          <a ui-sref="postsShow({ id: post.id })">Full Article</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

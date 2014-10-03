@@ -1,94 +1,47 @@
-  <div class="main">
-    <div class="main-inner">
-      <div class="container">
-
-<h1><a ui-sref="home">The KB</a></h1>
-<div class="search">
-  <div class="row-fluid">
-
-    <div id="sidebar" class="span4">
-
-      <div class="widget">
-        <header class="widget-header">
-          <a ui-sref="home"><i class="fa fa-search"></i>
-          <h3>Return to KB Search</h3></a>
-        </header> <!-- /widget-header -->
-        <div class="widget-content">
-
-          <div class='sfContentBlock'>
-            <h4>
-              <i class="fa fa-tags"></i> Commonly Used Tags
-            </h4>
-            <ul class="list-unstyled">
-              <li><a href=""><span class="badge badge-info">payment</span></a></li>
-              <li><a href=""><span class="badge badge-info">field day</span></a></li>
-              <li><a href=""><span class="badge badge-info">video</span></a></li>
-            </ul>
-          </div>
-
-        </div> <!-- /widget-content -->
-      </div> <!-- /widget -->
-    </div> <!-- /sidebar -->
-
-    <div id="content" class="span8">
-      <div class="full-post">
-
-        <ol class="breadcrumb">
-          <li>
-            <a ui-sref="home">Issues</a>
-          </li>
-          <li class="active">Create</li>
-        </ol>
-
-        <form novalidate class="simple-form" ng-submit="save(post)">
-        <!-- Form Name -->
-        <legend>Create Article</legend>
-
-        <!-- Select Basic -->
-        <div class="input-group row-fluid">
-          <label class="span2 control-label" for="selectbasic">Category</label>
-          <div class="span6">
-            <select ng-model="post.category_id" ng-options="category.id as category.name for category in categories" class="span6">
-              <option value="">Choose Category</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Text input-->
-        <div class="input-group row-fluid">
-          <label class="span2 control-label" for="Title">Title</label>
-          <div class="span6">
-          <input id="Title" name="Title" type="text" placeholder="" class="form-control input-md" ng-model="post.title">
-
-          </div>
-        </div>
-
-        <!-- Textarea -->
-        <div class="input-group row-fluid">
-          <label class="span2 control-label" for="textarea">Body</label>
-          <div class="span6">
-            <textarea id="textarea" name="textarea" ng-model="post.body"></textarea>
-          </div>
-        </div>
-
-        <!-- Text input for Tags-->
-        <div class="input-group row-fluid">
-          <label class="span2 control-label" for="Title">Add Tags</label>
-          <div class="span6">
-            <tags-input ng-model="post.tags" display-property="name" on-tag-added="tagAdded($tag)" replace-spaces-with-dashes="false">
-              <auto-complete source="tagSource()"></auto-complete>
-            </tags-input>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Publish</button>
-        </form>
-
-      </div>
-    </div><!-- /content -->
+<div class="row">
+  <div class="col-sm-3">
   </div>
+  <div class="col-sm-9">
+    <form ng-submit="save(post)" class="form-horizontal" novalidate>
+      <legend>Edit Article</legend>
 
-</div><!-- /search -->
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="selectbasic">Category</label>
+        <div class="col-sm-10">
+          <select ng-model="post.category_id" ng-options="category.id as category.name for category in categories" class="form-control">
+            <option value="">Choose Category</option>
+          </select>
+        </div>
+      </div>
 
-      </div> <!-- /container -->
-    </div> <!-- /main-inner -->
-  </div> <!-- /main -->
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="Title">Title</label>
+        <div class="col-sm-10">
+          <input id="Title" name="Title" type="text" placeholder="" class="form-control" ng-model="post.title">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="Title">Tags</label>
+        <div class="col-sm-10">
+          <tags-input ng-model="post.tags" display-property="name" replace-spaces-with-dashes="false" on-tag-added="tagAdded($tag)">
+            <auto-complete source="tagSource()"></auto-complete>
+          </tags-input>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="textarea">Body</label>
+        <div class="col-sm-10">
+          <textarea id="textarea" name="textarea" ng-model="post.body" class="form-control" rows="3"></textarea>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary">Publish</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
