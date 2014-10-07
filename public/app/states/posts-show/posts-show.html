@@ -1,25 +1,49 @@
 <div class="row">
   <div class="col-sm-3">
-    <p><i class="fa fa-archive"></i> Filed: {{post.category.name}}</p>
-    <p><i class="fa fa-eye"></i> Viewed: 250</p>
+    <p><span style="color:green" class="glyphicon glyphicon-ok"></span> <strong> Approved On:</strong> 10/6/2014</p>
+    <p><span style="color:red" class="glyphicon glyphicon-warning-sign"></span> <strong> Unapproved</strong></p>
+    <p><span style="color:red" class="glyphicon glyphicon-flag"></span> <strong> Review Requested On:</strong> 10/6/2014</p>
+    <p><span class="glyphicon glyphicon-folder-open"></span> <strong> Category:</strong> {{post.category.name}}</p>
+    <p><span class="glyphicon glyphicon-star"></span> <strong> Voted Helpful:</strong> 73x</p>
+    <p><span class="glyphicon glyphicon-eye-open"></span> <strong> Viewed:</strong> 250x</p>
+    <p><span class="glyphicon glyphicon-tags"></span> <strong> Tags:</strong> </p>
     <ul class="list-inline">
       <li ng-repeat="(name, tag) in post.tags">
-        <a><span class="label label-info">{{tag["name"]}}</span></a>
+        <a><span class="label label-info">{{tag["name"]}} 42</span></a>
       </li>
     </ul>
   </div>
-  <div class="col-sm-9">
+  <div class="col-sm-7">
+    <ol class="breadcrumb">
+      <li>
+        <a ui-sref="home">Articles</a>
+      </li>
+      <li class="active">Article</li>
+    </ol>
     <h2>{{post.title}}</h2>
-    <p>{{post.body}}</p>
+    <p style=" text-indent: 1em;" align="justify">{{post.body}}</p>
+    <ul class="list-inline">
+      <li>
+        <a href="#"><img src="http://placehold.it/200x200" class="thumbnail img-responsive height=" 150"="" width="150" "=""></a>
+      </li>
+      <li>
+        <a href="#"><img src="http://placehold.it/200x200" class="thumbnail img-responsive height=" 150"="" width="150" "=""></a>
+      </li>
+      <li>
+        <a href="#"><img src="http://placehold.it/200x200" class="thumbnail img-responsive height=" 150"="" width="150" "=""></a>
+      </li>
+    </ul>
 
+    <br>
     <div class="row">
       <div class="col-sm-12">
-        <a href="#" class="btn btn-success btn-small"><i class="fa fa-thumbs-o-up"></i> I Approve This</a>
-        <a href="#" class="btn btn-info btn-small"><i class="fa fa-history"></i> History</a>
-        <a ui-sref="postsEdit({ id: post.id })" class="btn btn-primary btn-small"><i class="fa fa-pencil-square-o"></i> Edit</a>
-        <a href="#" ng-click="destroy(post)" class="btn btn-danger btn-small"><i class="fa fa-trash-o"></i> Remove</a>
+        <a href="#" class="btn btn-success btn-small"><span class="glyphicon glyphicon-thumbs-up"></span> I Approve This</a>
+        <a href="#" class="btn btn-info btn-small"><span class="glyphicon glyphicon-time"></span> History</a>
+        <a ui-sref="postsEdit({ id: post.id })" class="btn btn-primary btn-small"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+        <a href="#" ng-click="destroy(post)" class="btn btn-danger btn-small"><span class="glyphicon glyphicon-flag"></span> Flag For Review</a>
       </div>
     </div>
+    <br>
     <div class="row">
       <div class="col-sm-12">
         <em>Was this article helpful to you?</em>

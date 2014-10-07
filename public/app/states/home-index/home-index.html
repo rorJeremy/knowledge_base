@@ -1,14 +1,30 @@
 <div class="row">
   <div class="col-sm-3">
     <div class="panel panel-default">
-      <div class="panel-heading">Search</div>
+      <div class="panel-heading"><span class="glyphicon glyphicon-search"></span> Search</div>
       <div class="panel-body">
         <form>
           <div class="form-group">
-            <input type="text" name="title" ng-model="query.title" placeholder="Search by Title" class="form-control" />
+            <select class="form-control">
+              <option value=1>Choose State</option>
+              <option value=2>Texas</option>
+              <option value=3>California</option>
+            </select>
           </div>
           <div class="form-group">
-            <input type="text" name="tags" ng-model="tags" placeholder="Search by Tags" class="form-control" />
+            <select class="form-control">
+              <option value=1>Choose Program</option>
+              <option value=2>Boat-Ed</option>
+              <option value=3>Hunter-Ed</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <input type="text" name="tags" ng-model="tags" placeholder="Search..." class="form-control" />
+          </div>
+          <div class="form-group">
+            <select ng-model="category" ng-options="category.name for category in categories" class="form-control">
+              <option value="">Choose Category</option>
+            </select>
           </div>
           <div class="form-group">
             <select ng-model="orderProp" class="form-control">
@@ -16,27 +32,26 @@
               <option value="updated_at">Oldest</option>
             </select>
           </div>
-          <div class="form-group">
-            <select ng-model="category" ng-options="category.name for category in categories" class="form-control">
-              <option value="">Choose Category</option>
-            </select>
-          </div>
         </form>
       </div>
     </div>
 
     <div class="panel panel-default">
-      <div class="panel-heading">Commonly Used Tags</div>
+      <div class="panel-heading"><span style="color:red" class="glyphicon glyphicon-flag"></span> Review Articles <span class="badge">11</span></div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading"><span class="glyphicon glyphicon-tags"></span> Commonly Used Tags</div>
       <div class="panel-body">
         <ul class="list-inline">
-          <li><a><span class="label label-info">payment</span></a></li>
-          <li><a><span class="label label-info">field day</span></a></li>
-          <li><a><span class="label label-info">video</span></a></li>
+          <li><a><span class="label label-info">payment: 310</span></a></li>
+          <li><a><span class="label label-info">field day: 290</span></a></li>
+          <li><a><span class="label label-info">video: 276</span></a></li>
         </ul>
       </div>
     </div>
   </div>
-  <div class="col-sm-9">
+  <div class="col-sm-8">
     <div class="alert alert-info">
       <strong>Can't find what you're looking for?</strong>
       <a ui-sref="postsNew">Create an article.</a>
@@ -46,12 +61,11 @@
     <ul class="media-list">
       <li class="media" ng-repeat="post in posts | filter:query | filter:tag | filter:{category_id:category.id} | orderBy:orderProp">
         <div class="media-body">
-          <h4 class="media-heading"><a ui-sref="postsShow({ id: post.id })">[{{post.category["name"]}}] {{post.title}}</a></h4>
-          <span>Updated on August 18, 2014</span>
+          <h3 class="media-heading"><a ui-sref="postsShow({ id: post.id })">[{{post.category["name"]}}] {{post.title}} <span style="color:red" class="glyphicon glyphicon-flag"></span></a></h3>
+          <p style=" text-indent: 1em;" align="justify"><strong>{{post.body}}</strong></p>
+          <span><b>Updated on:</b> <em>August 18, 2014</em></span>
           <span><i class="fa fa-archive"></i></em>
-          <i class="fa fa-tags"></i> Tags: <span class="badge badge-info" ng-repeat="(name, tag) in post.tags">{{tag["name"]}}</span>
-          <p>{{post.body}}</p>
-          <a ui-sref="postsShow({ id: post.id })">Full Article</a>
+          <i class="fa fa-tags"></i> <b>Tags:</b> <span class="label label-info" ng-repeat="(name, tag) in post.tags">{{tag["name"]}}: 24 </span>
         </div>
       </li>
     </ul>
