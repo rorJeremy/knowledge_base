@@ -33,7 +33,7 @@
       <li class="media" ng-repeat="post in posts | filter:query | filter:tag | filter:{category_id:category.id} | orderBy:orderProp">
         <div class="media-body">
           <h3 class="media-heading"><a ui-sref="postsShow({ id: post.id })">[{{post.category}}] {{post.title}}</a></h3>
-          <p style=" text-indent: 1em;" align="justify"><strong>{{post.body}}</strong></p>
+          <p align="justify"><strong>{{post.body}}</strong></p>
           <span><b>Updated on:</b> <em>{{post.updated_at | date:"MM/dd/yyyy 'at' h:mma"}}</em></span>
           <span><i class="fa fa-archive"></i></em>
           <i class="fa fa-tags"></i> <b>Tags:</b> <span class="label label-info" ng-repeat="(name, tag) in post.tags">{{tag["name"]}}</span>
