@@ -27,6 +27,25 @@ module Api
           format.json {render :json => @category}
         end
       end
+
+      def new
+        # default: render 'new' template
+        respond_with(Category.new)
+      end
+
+      def create
+        @category = Category.new(category_params)
+        if @category.save
+          respond_to do |format|
+            format.json {render :json => @category}
+          end
+        end
+      end
+
+      private
+        def category_params
+          params.required(:category).permit(:id, :name)
+        end
     end
   end
 end

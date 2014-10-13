@@ -16,4 +16,6 @@ class Post < ActiveRecord::Base
   accepts_nested_attributes_for :posts_tags, allow_destroy: true
 
   belongs_to :category
+
+  attr_accessor :title_tags
 end

@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-sm-3">
+  </div>
+  <div class="col-sm-9">
+    <div class="col-sm-9">
+      <ol class="breadcrumb">
+        <li>
+          <a ui-sref="postsNew">Create Article</a>
+        </li>
+        <li class="active">Create Category</li>
+      </ol>
+    </div>
+    <form ng-submit="save(category)" class="form-horizontal" novalidate>
+      <legend>Create New Category</legend>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="Title">Category Name</label>
+        <div class="col-sm-4">
+          <input id="Title" name="Title" type="text" placeholder="" class="form-control" ng-model="category.name">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-7">
+          <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

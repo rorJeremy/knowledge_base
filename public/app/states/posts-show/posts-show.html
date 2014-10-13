@@ -1,15 +1,10 @@
 <div class="row">
   <div class="col-sm-3">
-    <p><span style="color:green" class="glyphicon glyphicon-ok"></span> <strong> Approved On:</strong> 10/6/2014</p>
-    <p><span style="color:red" class="glyphicon glyphicon-warning-sign"></span> <strong> Unapproved</strong></p>
-    <p><span style="color:red" class="glyphicon glyphicon-flag"></span> <strong> Review Requested On:</strong> 10/6/2014</p>
-    <p><span class="glyphicon glyphicon-folder-open"></span> <strong> Category:</strong> {{post.category.name}}</p>
-    <p><span class="glyphicon glyphicon-star"></span> <strong> Voted Helpful:</strong> 73x</p>
-    <p><span class="glyphicon glyphicon-eye-open"></span> <strong> Viewed:</strong> 250x</p>
+    <p><span class="glyphicon glyphicon-folder-open"></span> <strong> Category:</strong> {{category.name}}</p>
     <p><span class="glyphicon glyphicon-tags"></span> <strong> Tags:</strong> </p>
     <ul class="list-inline">
       <li ng-repeat="(name, tag) in post.tags">
-        <a><span class="label label-info">{{tag["name"]}} 42</span></a>
+        <a><span class="label label-info">{{tag["name"]}}</span></a>
       </li>
     </ul>
   </div>
@@ -22,47 +17,13 @@
     </ol>
     <h2>{{post.title}}</h2>
     <p style=" text-indent: 1em;" align="justify">{{post.body}}</p>
-    <ul class="list-inline">
-      <li>
-        <a href="#"><img src="http://placehold.it/200x200" class="thumbnail img-responsive height=" 150"="" width="150" "=""></a>
-      </li>
-      <li>
-        <a href="#"><img src="http://placehold.it/200x200" class="thumbnail img-responsive height=" 150"="" width="150" "=""></a>
-      </li>
-      <li>
-        <a href="#"><img src="http://placehold.it/200x200" class="thumbnail img-responsive height=" 150"="" width="150" "=""></a>
-      </li>
-    </ul>
 
     <br>
     <div class="row">
       <div class="col-sm-12">
-        <a href="#" class="btn btn-success btn-small"><span class="glyphicon glyphicon-thumbs-up"></span> I Approve This</a>
-        <a href="#" class="btn btn-info btn-small"><span class="glyphicon glyphicon-time"></span> History</a>
         <a ui-sref="postsEdit({ id: post.id })" class="btn btn-primary btn-small"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-        <a href="#" ng-click="destroy(post)" class="btn btn-danger btn-small"><span class="glyphicon glyphicon-flag"></span> Flag For Review</a>
+        <a href="#" ng-click="destroy(post)" class="btn btn-danger btn-small"><span class="glyphicon glyphicon-trash"></span> Remove</a>
       </div>
     </div>
-    <br>
-    <div class="row">
-      <div class="col-sm-12">
-        <em>Was this article helpful to you?</em>
-        <a href="#" class="btn btn-default btn-small span2">Yes</a>
-        <a href="#" class="btn btn-default btn-small span2">No</a>
-      </div>
-    </div>
-
-    <div class="panel panel-default">
-      <div class="panel-heading"><i class="fa fa-comment"></i> Notes</div>
-      <div class="panel-body">
-        <form id="new_note" method="post">
-          <div class="form-group">
-            <textarea id="note_note_text" name="note[note_text]"  class="form-control" rows="3"></textarea>
-          </div>
-          <button class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add Note</button>
-        </form>
-      </div>
-    </div>
-
   </div>
 </div>

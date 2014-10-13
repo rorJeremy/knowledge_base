@@ -24,6 +24,16 @@
           }
         }
       })
+      .state("categoriesNew", {
+        url: '/categories/new',
+        templateUrl: 'app/states/categories-new/categories-new.html',
+        controller: 'CategoriesNewController',
+        resolve: {
+          categories: function(Category) {
+            return Category.getList();
+          }
+        }
+      })
       .state("postsEdit", {
         url: '/posts/edit/:id',
         templateUrl: 'app/states/posts-edit/posts-edit.html',
@@ -43,7 +53,15 @@
       .state("postsShow", {
         url: '/posts/:id',
         templateUrl: 'app/states/posts-show/posts-show.html',
-        controller: 'PostsShowController'
+        controller: 'PostsShowController',
+        resolve: {
+          post: function($stateParams, Post){
+            return Post.get($stateParams.id);
+          },
+          categories: function(Category) {
+            return Category.getList();
+          }
+        }
       })
 
     $urlRouterProvider.otherwise('/home');

@@ -6,12 +6,13 @@ module Api
 
       def index
         # @posts = Post.all
-        @posts = Post.all.order("id DESC")
-        # @posts.each do |post|
-        #   raise post.category
-        # end
-        respond_to do |format|
-          format.json {render :json => @posts.to_json(:include => {:tags => {:only => :name}, :category => {:only => :name}})}
+        # @posts = Post.all.order("id DESC")
+        @posts = Post.includes(:tags, :category).all.order("id DESC")
+        @posts.each do |post|
+          post.title_tags = post.title
+          post.tags.each do |tag|
+            post.title_tags += ' ' + tag.name
+          end
         end
       end
 
