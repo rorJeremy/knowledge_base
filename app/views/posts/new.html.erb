@@ -24,7 +24,9 @@
             <%= f.select :category_id, Category.all.map { |r| [r.name, r.id] }, include_blank: true, class: 'form-control' %>
           </div>
           <div class="col-sm-3">
-            <a href="#" class="btn btn-primary btn-small"><span class="glyphicon glyphicon-plus"></span> Add New Category</a>
+            <%= link_to new_category_path, class: "btn btn-info btn-small" do %>
+              <i class="glyphicon glyphicon-plus">Add New Category</i>
+            <% end %>
           </div>
           <div class="col-sm-2">
           </div>
@@ -53,8 +55,13 @@
         </div>
 
         <div class="form-group row">
-          <div class="col-sm-8">
+          <div class="col-sm-3">
             <%= f.association :tags, as: :check_boxes, class: 'form-control' %>
+          </div>
+          <div class="col-sm-3">
+            <%= link_to new_tag_path, class: "btn btn-info btn-small" do %>
+              <i class="glyphicon glyphicon-plus">Add New Tag</i>
+            <% end %>
           </div>
         </div>
 

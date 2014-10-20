@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   # root "application#index"
   # match "*path" => "application#index", via: [:get, :post]
   resources :posts
+  resources :categories
+  resources :tags
   root :to => redirect('/posts')
 
   namespace :api, defaults: {format: :json} do

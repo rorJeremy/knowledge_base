@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-sm-3">
+  </div>
+  <div class="col-sm-9">
+    <div class="col-sm-9">
+      <ol class="breadcrumb">
+        <li>
+          <%= link_to "Create Article", new_post_path%>
+        </li>
+        <li class="active">Create Tag</li>
+      </ol>
+    </div>
+
+    <div class="col-sm-9">
+      <%= simple_form_for @tag, class: "form-horizontal" do |f| %>
+        <legend>Create New Tag</legend>
+
+        <div class="form-group row">
+
+          <div class='col-sm-2 control-label'>
+            <%= f.label "Tag Name" %>
+          </div>
+
+          <div class="col-sm-7">
+            <%= f.input_field :name, class: 'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-offset-2 col-sm-7">
+            <button type="submit" class="btn btn-primary">Create</button>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+</div>
