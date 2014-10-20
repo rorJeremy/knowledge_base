@@ -31,6 +31,11 @@ group :development, :test do
   gem 'jazz_hands'
 end
 
+gem 'nokogiri'
+gem "dotenv"
+gem "dotenv-rails"
+gem 'simple_form'
+
 # gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
 # gem 'elasticsearch-rails', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
 

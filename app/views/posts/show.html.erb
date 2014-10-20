@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-sm-3">
+    <p><span class="glyphicon glyphicon-folder-open"></span> <strong> Category:</strong> <%= @post.category["name"] %></p>
+    <p><span class="glyphicon glyphicon-tags"></span> <strong> Tags:</strong> </p>
+    <ul class="list-inline">
+      <% @post.tags.each do |tag| %>
+      <li>
+        <a><span class="label label-info"><%= tag["name"] %></span></a>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="col-sm-7">
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to "Articles", posts_path%>
+      </li>
+      <li class="active">Article</li>
+    </ol>
+    <h2><%= @post["title"] %></h2>
+    <p align="justify"><%= @post["body"] %> </p>
+
+    <br>
+    <div class="row">
+      <div class="col-sm-12">
+        <%= link_to edit_post_path(@post), class: "btn btn-primary btn-small" do %>
+          <i class="glyphicon glyphicon-edit">Edit</i>
+        <% end %>
+
+        <%= link_to post_path(@post), class: "btn btn-danger btn-small", method: "delete", data: { confirm: "Are you sure?" } do %>
+          <i class="glyphicon glyphicon-trash">Remove</i>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
