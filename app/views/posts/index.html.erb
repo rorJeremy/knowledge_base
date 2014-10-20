@@ -1,238 +1,47 @@
-
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Kalkomey Product Suite</title>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-
-  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-  <!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600">
-  <link href="http://kps.qa1.kalkomey.com/assets/vendor-07f0d6c8403a2556b36974d1f99b2e76.css" media="all" rel="stylesheet" />
-  <link href="http://kps.qa1.kalkomey.com/assets/application-dc7cacf34af270bc9155f701f735155c.css" media="all" rel="stylesheet" />
-  <meta content="authenticity_token" name="csrf-param" />
-<meta content="71VPmlRzRtQ85sKeKLtya7Eae9AzJw0atybIOTYetlM=" name="csrf-token" />
-
-  <script src="http://kps.qa1.kalkomey.com/assets/application-e8420d45fb9731950a72d6d7803e7c9d.js"></script>
-  <script src="http://kps.qa1.kalkomey.com/assets/certifications-6b0538ae9b084299db060b354c43b097.js"></script>
-
-<script>
-//<![CDATA[
-      (function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");
-      a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+
-      '//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];
-      f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){
-      var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(
-      Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:
-      d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);
-      b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};
-      i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
-      for(g=0;g<i.length;g++)f(c,i[g]); b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
-      mixpanel.init("aaf53c5560a4bf2699cbaf5a65f343e0");
-
-      var _kmq = _kmq || [];
-      var _kmk = _kmk || 'dc078fcfc238e22c05536273e8b119ab151ca407';
-      function _kms(u){
-        setTimeout(function(){
-          var d = document, f = d.getElementsByTagName('script')[0],
-          s = d.createElement('script');
-          s.type = 'text/javascript'; s.async = true; s.src = u;
-          f.parentNode.insertBefore(s, f);
-        }, 1);
-      }
-      _kms('//i.kissmetrics.com/i.js');
-      _kms('//doug1izaerwt3.cloudfront.net/' + _kmk + '.1.js');
-
-//]]>
-</script></head>
-<body class="qa">
-
-  <div class="navbar navbar-inverse navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="fa fa-bar"></span>
-        <span class="fa fa-bar"></span>
-        <span class="fa fa-bar"></span>
-      </a>
-      <a class="brand" href="/"><img alt="Kalkomey Product Suite" src="http://kps.qa1.kalkomey.com/assets/kps_logo-17d4df49ac01bc8f218ad89899168314.png" /></a>
-
-      <div class="nav-collapse">
-        <ul class="nav pull-right">
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-cog"></i>
-                  Admin
-                  <b class="caret"></b>
-                </a>
-
-                <ul class="dropdown-menu">
-                    <li><a href="/certification_collections">Manage Collections</a></li>
-                    <li><a href="/users">Manage Users</a></li>
-                    <li><a href="/certifications/activity">Certification Activity</a></li>
-                </ul>
-              </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-user"></i>
-                Jeremy Perez
-                <b class="caret"></b>
-              </a>
-
-              <ul class="dropdown-menu">
-                <li><a href="/users/84">My Profile</a></li>
-                <li><a href="/logout">Logout</a></li>
-              </ul>
-            </li>
-        </ul>
-      </div> <!--/.nav-collapse -->
-    </div> <!-- /container -->
-  </div> <!-- /navbar-inner -->
-</div> <!-- /navbar -->
-
-  <div class="main">
-    <div class="main-inner">
-      <div class="container">
-
-<h1><a href="./kb_index.html">The KB</a></h1>
-<div class="search">
-  <div class="row-fluid">
-
-    <div id="sidebar" class="span4">
-
-      <div class="widget">
-        <header class="widget-header">
-          <i class="fa fa-list-alt"></i>
-          <h3>Search KB</h3>
-        </header> <!-- /widget-header -->
-        <div class="widget-content">
-          <form action="/certifications/search" class="form-inline" id="search-form" method="get">
-            <div class="row-fluid">
-              <fieldset class="span6">
-                <input name="query" placeholder="Search..." type="text" value=""/>
-              </fieldset>
-              <select class="span6 pull-right">
-                <option value="category">Category</option>
-                <option value="login">Login</option>
-                <option value="payment">Payment</option>
-                <option value="etc">Etc</option>
-              </select>
-            </div>
-          </form>
-
-          <div class='sfContentBlock'>
-            <h4>Common Searches by Tags</h4> <ul> <li><a href="./kb_index_card_printer.html">Card Printer</a></li> <li><a href="./kb_index_cms.html">CMS</a></li> <li><a href="./kb_index_kps.html">KPS</a></li> </ul>
+<div class="row">
+  <div class="col-sm-3">
+    <div class="panel panel-default">
+      <div class="panel-heading"><span class="glyphicon glyphicon-search"></span> Search</div>
+      <div class="panel-body">
+        <form>
+          <div class="form-group">
+            <input type="text" name="query" ng-model="query.title_tags" placeholder="Search by Title or Tag" class="form-control" />
           </div>
-
-        </div> <!-- /widget-content -->
-      </div> <!-- /widget -->
-    </div> <!-- /sidebar -->
-
-    <div id="content" class="span8">
-      <section class="search-results">
-        <ol>
-          <% @posts.each do |post| %>
-          <li>
-            <header>
-              <h4>
-                <a href="#"><%= post.title %></a>
-              </h4>
-              <p class="post-info">
-                  By Jeremy Perez
-                   — August 18, 2014
-              </p>
-            </header>
-            <p>
-              <%= post.body %>
-            </p>
-              <a class="post-link" href="#">Full Article</a>
-          </li>
-          <% end %>
-        </ol>
-      </section>
-    </div><!-- /content -->
+          <div class="form-group">
+            <select ng-model="category" ng-options="category.name for category in categories" class="form-control">
+              <option value="">Choose Category</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <select ng-model="orderProp" class="form-control">
+              <option value="updated_at">Oldest</option>
+              <option value="-updated_at" selected>Newest</option>
+            </select>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
+  <div class="col-sm-8">
+    <div class="alert alert-info">
+      <strong>Can't find what you're looking for?</strong>
+      <%= link_to "Create an article.", new_post_path %>
+    </div>
 
-  <div class="pagination-bar">
+    <section class="search-results">
+    <ul class="media-list">
+      <% @posts.each do |post| %>
+        <li class="media">
+          <div class="media-body">
+            <h3 class="media-heading">
+              <%= link_to "[#{post.category["name"]}] #{post["title"]}", post_path(post) %>
+            </h3>
+            <p align="justify"><strong><%= post["body"] %></strong></p>
+            <span><b>Updated on:</b> <em><%= post["updated_at"].strftime("%m/%d/%Y at %I:%M%p") %></em></span>
+            <i class="fa fa-tags"></i> <b>Tags:</b> <% post.tags.each do |tag| %> <span class="label label-info"><%= tag["name"] %></span> <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
   </div>
-
-</div><!-- /search -->
-
-      </div> <!-- /container -->
-    </div> <!-- /main-inner -->
-  </div> <!-- /main -->
-
-  <div class="extra">
-  <div class="extra-inner">
-    <div class="container">
-      <div class="row">
-          <div class="span6">
-            <h4>About Us</h4>
-            <p>Kalkomey is the official provider of recreational safety education materials for North America. <a rel="external" title="Kalkomey's press resources" href="http://kalkomey.com/about/press-resources/releases/">View press releases.</a></p>
-            <p>Kalkomey Product Suite is produced by <a href="http://kalkomey.com/">Kalkomey Enterprises, Inc.</a></p>
-            <address>
-            14086 Proton Road<br>
-            Dallas, Texas 75244<br>
-            800-830-2268<br>
-            <a href="mailto:info@kalkomey.com">info@kalkomey.com</a>
-            </address>
-          </div> <!-- /span6 -->
-
-          <div class="span3">
-            <h4>Customer Support</h4>
-            <p>Our office hours are 8:30 a.m. to 5:30 p.m. Central, Monday through Friday, with extended hours during late spring and summer.</p>
-            <ul>
-              <li><strong>phone:</strong> 800-830-2268</li>
-              <li><strong>e-mail:</strong> <a href="mailto:kps-support@kalkomey.com?subject=KPS%20Support%20Inquiry">KPS Customer Support</a></li>
-            </ul>
-          </div> <!-- /span3 -->
-        </div> <!-- /row -->
-    </div> <!-- /container -->
-  </div> <!-- /extra-inner -->
-</div> <!-- /extra -->
-
-<footer class="footer">
-  <div class="footer-inner">
-    <div class="container">
-      &copy; 2014 <a href="http://kalkomey.com">Kalkomey Enterprises, Inc.</a>
-    </div> <!-- /container -->
-  </div> <!-- /footer-inner -->
-</footer>
-
-
-  <!-- JavaScript placed at the end of the document so the pages load faster -->
-  <script type="text/javascript">
-
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-11990121-16']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-
-  </script>
-
-  <script>
-    $(document).ready(function() {
-      $('.dropdown-toggle').dropdown()
-      $('.datepicker').each(function() {
-        $(this).kendoDatePicker({ format: "MM/dd/yyyy" });
-      });
-    });
-  </script>
-
-<script>
-//<![CDATA[
-
-//]]>
-</script></body>
-</html>
+</div>

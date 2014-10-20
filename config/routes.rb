@@ -14,8 +14,10 @@ Rails.application.routes.draw do
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
-  root "application#index"
+  # root "application#index"
   # match "*path" => "application#index", via: [:get, :post]
+  resources :posts
+  root :to => redirect('/posts')
 
   namespace :api, defaults: {format: :json} do
     namespace :v1 do

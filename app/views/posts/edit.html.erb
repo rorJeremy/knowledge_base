@@ -1,0 +1,72 @@
+<div class="row">
+  <div class="col-sm-3">
+  </div>
+  <div class="col-sm-9">
+    <div class="col-sm-9">
+      <ol class="breadcrumb">
+        <li>
+          <%= link_to "Article", post_path(@post) %>
+        </li>
+        <li class="active">Edit</li>
+      </ol>
+    </div>
+
+    <div class="col-sm-9">
+      <%= simple_form_for @post, class: "form-horizontal" do |f| %>
+        <legend>Edit Article</legend>
+        <div class="form-group row">
+
+          <div class='col-sm-1 control-label'>
+            <%= f.label "Category" %>
+          </div>
+
+          <div class="col-sm-2">
+            <%= f.select :category_id, Category.all.map { |r| [r.name, r.id] }, include_blank: true, class: 'form-control' %>
+          </div>
+          <div class="col-sm-3">
+            <a href="#" class="btn btn-primary btn-small"><span class="glyphicon glyphicon-plus"></span> Add New Category</a>
+          </div>
+          <div class="col-sm-2">
+          </div>
+        </div>
+
+        <div class="form-group row">
+
+          <div class='col-sm-1 control-label'>
+            <%= f.label "Title" %>
+          </div>
+
+          <div class="col-sm-8">
+            <%= f.input_field :title, class: 'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group row">
+
+          <div class='col-sm-1 control-label'>
+            <%= f.label "Body" %>
+          </div>
+
+          <div class="col-sm-8">
+            <%= f.input_field :body, as: :text, class: 'form-control'%>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-8">
+              <%= f.association :tags, as: :check_boxes, class: 'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-offset-1 col-sm-8">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <%= link_to post_path(@post), class: "btn btn-danger" do %>
+              <i>Cancel</i>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

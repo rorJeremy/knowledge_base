@@ -13,9 +13,9 @@ class Post < ActiveRecord::Base
 
   has_many :posts_tags
   has_many :tags, through: :posts_tags
-  accepts_nested_attributes_for :posts_tags, allow_destroy: true
 
   belongs_to :category
 
   attr_accessor :title_tags
+
 end
