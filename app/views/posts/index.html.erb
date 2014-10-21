@@ -19,7 +19,7 @@
               <%= link_to "[#{post.category["name"]}] #{post["title"]}", post_path(post) %>
             </h3>
             <p align="justify"><strong><%= post["body"] %></strong></p>
-            <span><b>Updated on:</b> <em><%= post["updated_at"].strftime("%m/%d/%Y at %I:%M%p") %></em></span>
+            <span><b>Updated on:</b> <em><%= post["updated_at"].in_time_zone("Central Time (US & Canada)").strftime("%m/%d/%Y at %I:%M%p") %></em></span>
             <i class="fa fa-tags"></i> <b>Tags:</b> <% post.tags.each do |tag| %> <span class="label label-info"><%= tag["name"] %></span> <% end %>
           </div>
         </li>
