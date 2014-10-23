@@ -9,15 +9,16 @@ class PostsController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def index
-    # @posts = Post.all.order("id DESC")
-    # @posts = fetch_from_url("http://localhost:3000/api/v1/posts.json")
-
     # @posts = Post.includes(:tags, :category).all.order("id DESC")
-    @posts, @show_every_post = posts_from_parameters
+
+    d { "WE MADE IT" }
+
+    @response, @show_every_post = posts_from_parameters
     if @show_every_post == false
-      @posts = @posts.records.to_a
+      @posts = @response.records
+    else
+      @posts = @response
     end
-    # @posts = @posts.records.to_a
     # debugger
     # @posts.each do |post|
     #   post.title_tags = post.title

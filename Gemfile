@@ -29,6 +29,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 group :development, :test do
   gem 'jazz_hands'
+  gem 'better_errors'
 end
 
 gem 'nokogiri'
@@ -39,6 +40,7 @@ gem 'simple_form'
 gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
 gem 'elasticsearch-rails', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
 
+gem 'log_buddy'
 
 
 # Use ActiveModel has_secure_password

@@ -20,17 +20,42 @@
 
     <section class="search-results">
     <ul class="media-list">
-      <% @posts.each do |post| %>
-        <li class="media">
-          <div class="media-body">
-            <h3 class="media-heading">
-              <%= link_to "[#{post.category["name"]}] #{post["title"]}", post_path(post) %>
-            </h3>
-            <p align="justify"><strong><%= post["body"] %></strong></p>
-            <span><b>Updated on:</b> <em><%= post["updated_at"].in_time_zone("Central Time (US & Canada)").strftime("%m/%d/%Y at %I:%M%p") %></em></span>
-            <i class="fa fa-tags"></i> <b>Tags:</b> <% post.tags.each do |tag| %> <span class="label label-info"><%= tag["name"] %></span> <% end %>
-          </div>
-        </li>
+      <% if @show_every_post == false %>
+        <% @posts.each_with_hit do |post, hit| %>
+          <li class="media">
+            <div class="media-body">
+              <h3 class="media-heading">
+                <% if hit.try(:highlight).try(:title) %>
+                  <%= link_to "[#{post.category["name"]}] #{hit.highlight.title[0]}".html_safe, post_path(post) %>
+                <% else %>
+                  <%= link_to "[#{post.category["name"]}] #{post["title"]}", post_path(post) %>
+                <% end %>
+              </h3>
+              <% if hit.try(:highlight).try(:body) %>
+                <% hit.highlight.body.each do |snippet| %>
+                  <p align="justify"><strong><%= snippet.html_safe %></strong></p>
+                <% end %>
+              <% else %>
+                <p align="justify"><strong><%= post["body"] %></strong></p>
+              <% end %>
+              <span><b>Updated on:</b> <%= post["updated_at"].in_time_zone("Central Time (US & Canada)").strftime("%m/%d/%Y at %I:%M%p") %></span>
+              <i class="fa fa-tags"></i> <b>Tags:</b> <% post.tags.each do |tag| %> <span class="label label-info"><%= tag["name"] %></span> <% end %>
+            </div>
+          </li>
+        <% end %>
+      <% else %>
+        <% @posts.each do |post| %>
+          <li class="media">
+            <div class="media-body">
+              <h3 class="media-heading">
+                <%= link_to "[#{post.category["name"]}] #{post["title"]}", post_path(post) %>
+              </h3>
+              <p align="justify"><strong><%= post["body"] %></strong></p>
+              <span><b>Updated on:</b> <%= post["updated_at"].in_time_zone("Central Time (US & Canada)").strftime("%m/%d/%Y at %I:%M%p") %></span>
+              <i class="fa fa-tags"></i> <b>Tags:</b> <% post.tags.each do |tag| %> <span class="label label-info"><%= tag["name"] %></span> <% end %>
+            </div>
+          </li>
+        <% end %>
       <% end %>
     </ul>
   </div>
