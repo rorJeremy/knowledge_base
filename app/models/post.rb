@@ -6,10 +6,12 @@
   #   t.integer  "category_id"
   # end
 
+require 'elasticsearch/model'
+
 class Post < ActiveRecord::Base
 
-  # include Elasticsearch::Model
-  # include Elasticsearch::Model::Callbacks
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
 
   has_many :posts_tags
   has_many :tags, through: :posts_tags
@@ -19,3 +21,5 @@ class Post < ActiveRecord::Base
   attr_accessor :title_tags
 
 end
+
+Post.import # for auto sync model with elastic search

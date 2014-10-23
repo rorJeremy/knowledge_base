@@ -2,6 +2,14 @@
   <div class="col-sm-3">
     <div class="panel panel-default">
       <div class="panel-heading"><span class="glyphicon glyphicon-search"></span> Search</div>
+      <div class="panel-body">
+        <%= form_for posts_path, method: :get do |f| %>
+          <div class="form-group">
+            <%= text_field_tag :q, params[:q] %>
+            <%= submit_tag "Go", name: nil %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
   <div class="col-sm-8">

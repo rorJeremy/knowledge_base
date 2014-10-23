@@ -36,8 +36,8 @@ gem "dotenv"
 gem "dotenv-rails"
 gem 'simple_form'
 
-# gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
-# gem 'elasticsearch-rails', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
+gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
+gem 'elasticsearch-rails', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
 
 
 
