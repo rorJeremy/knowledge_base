@@ -33,6 +33,7 @@ class Post < ActiveRecord::Base
         query: {
           multi_match: {
             query: query,
+            fuzziness: "AUTO",
             fields: ['title^10', 'body']
           }
         },
