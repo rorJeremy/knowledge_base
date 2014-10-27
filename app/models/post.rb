@@ -9,6 +9,8 @@
 require 'elasticsearch/model'
 
 class Post < ActiveRecord::Base
+  self.table_name = 'posts'
+  self.primary_key = 'id'
 
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
@@ -16,6 +18,7 @@ class Post < ActiveRecord::Base
   has_many :posts_tags
   has_many :tags, through: :posts_tags
 
+  # belongs_to :category, after_add: [ lambda { |a,c| a.__elasticsearch__.index_document } ], after_remove: [ lambda { |a,c| a.__elasticsearch__.index_document } ]
   belongs_to :category
 
   attr_accessor :title_tags
@@ -24,8 +27,39 @@ class Post < ActiveRecord::Base
     mappings dynamic: 'false' do
       indexes :title, analyzer: 'english', index_options: 'offsets'
       indexes :body, analyzer: 'english'
+      # indexes :tagss, type: :string, analyzer: 'snowball'
+      indexes :category_name
     end
   end
+
+  # def tagss
+  #   tag_names = []
+  #   tags.each do |tag|
+  #     tag_names << tag.name
+  #   end
+  #   tag_names
+  # end
+
+  def category_name
+    category && category.name
+  end
+
+  INDEXABLE_METHODS = %i(title body category_name)
+
+  def as_indexed_json(options={})
+    {}.tap do |json|
+      INDEXABLE_METHODS.each { |method| json[method] = send method }
+    end
+  end
+
+  # This is equivalent to the above
+  # def as_indexed_json(options={})
+  #   {
+  #     title: title,
+  #     body: body,
+  #     category_name: category_name
+  #   }
+  # end
 
   def self.search(query)
     __elasticsearch__.search(
@@ -34,13 +68,14 @@ class Post < ActiveRecord::Base
           multi_match: {
             query: query,
             fuzziness: "AUTO",
-            fields: ['title^10', 'body']
+            fields: ['category_name^10', 'title^5', 'body']
           }
         },
         highlight: {
           fields: {
             title: {},
-            body: {}
+            body: {},
+            category_name: {}
           }
         }
       }

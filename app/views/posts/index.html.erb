@@ -25,8 +25,12 @@
           <li class="media">
             <div class="media-body">
               <h3 class="media-heading">
-                <% if hit.try(:highlight).try(:title) %>
+                <% if hit.try(:highlight).try(:title) && hit.try(:highlight).try(:category_name)%>
+                  <%= link_to "[#{hit.highlight.category_name[0]}] #{hit.highlight.title[0]}".html_safe, post_path(post) %>
+                <% elsif hit.try(:highlight).try(:title) && hit.try(:highlight).try(:category_name) == nil %>
                   <%= link_to "[#{post.category["name"]}] #{hit.highlight.title[0]}".html_safe, post_path(post) %>
+                <% elsif hit.try(:highlight).try(:title) == nil && hit.try(:highlight).try(:category_name) %>
+                  <%= link_to "[#{hit.highlight.category_name[0]}] #{post["title"]}".html_safe, post_path(post) %>
                 <% else %>
                   <%= link_to "[#{post.category["name"]}] #{post["title"]}", post_path(post) %>
                 <% end %>
