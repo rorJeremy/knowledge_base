@@ -16,9 +16,8 @@ class Post < ActiveRecord::Base
   include Elasticsearch::Model::Callbacks
 
   has_many :posts_tags
-  has_many :tags, through: :posts_tags
+  has_many :tags, through: :posts_tags, after_add: [ lambda { |a,c| a.__elasticsearch__.index_document } ], after_remove: [ lambda { |a,c| a.__elasticsearch__.index_document } ]
 
-  # belongs_to :category, after_add: [ lambda { |a,c| a.__elasticsearch__.index_document } ], after_remove: [ lambda { |a,c| a.__elasticsearch__.index_document } ]
   belongs_to :category
 
   attr_accessor :title_tags
@@ -27,24 +26,28 @@ class Post < ActiveRecord::Base
     mappings dynamic: 'false' do
       indexes :title, analyzer: 'english', index_options: 'offsets'
       indexes :body, analyzer: 'english'
-      # indexes :tagss, type: :string, analyzer: 'snowball'
+      indexes :tag_list, type: :string, analyzer: 'snowball'
       indexes :category_name
     end
   end
 
-  # def tagss
-  #   tag_names = []
-  #   tags.each do |tag|
-  #     tag_names << tag.name
-  #   end
-  #   tag_names
-  # end
+  def tag_list
+    tags && tag_names
+  end
+
+  def tag_names
+    tag_names = []
+    tags.each do |tag|
+      tag_names << tag.name
+    end
+    tag_names
+  end
 
   def category_name
     category && category.name
   end
 
-  INDEXABLE_METHODS = %i(title body category_name)
+  INDEXABLE_METHODS = %i(title body category_name tag_list)
 
   def as_indexed_json(options={})
     {}.tap do |json|
@@ -57,7 +60,8 @@ class Post < ActiveRecord::Base
   #   {
   #     title: title,
   #     body: body,
-  #     category_name: category_name
+  #     category_name: category_name,
+  #     tag_list: tag_list
   #   }
   # end
 
@@ -68,14 +72,15 @@ class Post < ActiveRecord::Base
           multi_match: {
             query: query,
             fuzziness: "AUTO",
-            fields: ['category_name^10', 'title^5', 'body']
+            fields: ['tag_list^10', 'category_name^8', 'title^5', 'body']
           }
         },
         highlight: {
           fields: {
             title: {},
             body: {},
-            category_name: {}
+            category_name: {},
+            tag_list: {}
           }
         }
       }

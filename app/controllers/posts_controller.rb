@@ -9,9 +9,8 @@ class PostsController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def index
-    # @posts = Post.includes(:tags, :category).all.order("id DESC")
-
-    d { "WE MADE IT" }
+    # an example debug in the comment below
+    # d { "WE MADE IT" }
 
     @response, @show_every_post = posts_from_parameters
     if @show_every_post == false
