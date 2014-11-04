@@ -47,14 +47,19 @@ class PostsController < ApplicationController
   end
 
   def create
+    # @post = Post.new(params[:post])
     @post = Post.new(post_params)
-    if @post.save
-      flash[:notice] = "#{@post.title} was successfully created!"
-      redirect_to post_path(@post)
-    else
-      flash[:error] = "Article failed to create."
-      redirect_to posts_path
+
+    respond_to do |format|
+      if @post.save
+        format.json { render action: "show", status: :created }
+        format.xml { render xml: @post, status: :created }
+      else
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+        format.xml { render xml: @post.errors, status: :unprocessable_entity }
+      end
     end
+
   end
 
   def edit
@@ -63,19 +68,31 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-    if @post.update_attributes!(post_params)
-      flash[:notice] = "#{@post.title} was successfully updated!"
-      redirect_to post_path(@post)
-    else
-      flash[:error] = "#{@post.title} failed to update."
-      redirect_to post_path(@post)
+    # raise "hello"
+
+    respond_to do |format|
+      if @post.update_attributes(post_params)
+        format.json { head :no_content, status: :ok }
+        format.xml { head :no_content, status: :ok }
+      else
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+        format.xml { render xml: @post.errors, status: :unprocessable_entity }
+      end
     end
+
   end
 
   def destroy
-    Post.destroy(params[:id])
-    flash[:notice] = "Article was deleted!"
-    redirect_to posts_path
+    @post = Post.find_by_id(params[:id])
+    respond_to do |format|
+      if @post.destroy
+        format.json { head :no_content, status: :ok }
+        format.xml { head :no_content, status: :ok }
+      else
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+        format.xml { render xml: @post.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def fetch_from_url(url)
