@@ -2,6 +2,14 @@
   <div class="col-sm-3">
     <div class="panel panel-default">
       <div class="panel-heading"><span class="glyphicon glyphicon-search"></span> Search</div>
+      <div class="panel-body">
+        <%= form_for posts_path, method: :get do |f| %>
+          <div class="form-group">
+            <%= text_field_tag :q, params[:q] %>
+            <%= submit_tag "Go", name: nil %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
   <div class="col-sm-8">
@@ -12,17 +20,64 @@
 
     <section class="search-results">
     <ul class="media-list">
-      <% @posts.each do |post| %>
-        <li class="media">
-          <div class="media-body">
-            <h3 class="media-heading">
-              <%= link_to "[#{post.category["name"]}] #{post["title"]}", post_path(post) %>
-            </h3>
-            <p align="justify"><strong><%= post["body"] %></strong></p>
-            <span><b>Updated on:</b> <em><%= post["updated_at"].in_time_zone("Central Time (US & Canada)").strftime("%m/%d/%Y at %I:%M%p") %></em></span>
-            <i class="fa fa-tags"></i> <b>Tags:</b> <% post.tags.each do |tag| %> <span class="label label-info"><%= tag["name"] %></span> <% end %>
-          </div>
-        </li>
+      <% if @show_every_post == false %>
+        <% @posts.each_with_hit do |post, hit| %>
+          <li class="media">
+            <div class="media-body">
+              <h3 class="media-heading">
+                <% if hit.try(:highlight).try(:title) && hit.try(:highlight).try(:category_name)%>
+                  <%= link_to "[#{hit.highlight.category_name[0]}] #{hit.highlight.title[0]}".html_safe, post_path(post) %>
+                <% elsif hit.try(:highlight).try(:title) && hit.try(:highlight).try(:category_name) == nil %>
+                  <%= link_to "[#{post.category["name"]}] #{hit.highlight.title[0]}".html_safe, post_path(post) %>
+                <% elsif hit.try(:highlight).try(:title) == nil && hit.try(:highlight).try(:category_name) %>
+                  <%= link_to "[#{hit.highlight.category_name[0]}] #{post["title"]}".html_safe, post_path(post) %>
+                <% else %>
+                  <%= link_to "[#{post.category["name"]}] #{post["title"]}", post_path(post) %>
+                <% end %>
+              </h3>
+              <% if hit.try(:highlight).try(:body) %>
+                <% hit.highlight.body.each do |snippet| %>
+                  <p align="justify"><strong><%= snippet.html_safe %></strong></p>
+                <% end %>
+              <% else %>
+                <p align="justify"><strong><%= post["body"] %></strong></p>
+              <% end %>
+              <span><b>Updated on:</b> <%= post["updated_at"].in_time_zone("Central Time (US & Canada)").strftime("%m/%d/%Y at %I:%M%p") %></span>
+              <i class="fa fa-tags"></i> <b>Tags:</b>
+                <% if hit.try(:highlight).try(:tag_list) %>
+                  <% hit.highlight.tag_list.each do |tag| %>
+                    <span class="label label-info" style="color:green"><%= tag.html_safe %></span>
+                  <% end %>
+                <% end %>
+                <% post.tags.each do |tag| %>
+                  <% if hit.highlight.tag_list != nil %>
+                    <% arr = [] %>
+                    <% hit.highlight.tag_list.each do |highlightable_tag| %>
+                      <% arr << highlightable_tag.gsub(/<[^>]*>/, "") %>
+                    <% end %>
+                    <% if !arr.include?("#{tag["name"]}") %>
+                      <span class="label label-info"><%= tag["name"] %></span>
+                    <% end %>
+                  <% else %>
+                    <span class="label label-info"><%= tag["name"] %></span>
+                  <% end %>
+                <% end %>
+            </div>
+          </li>
+        <% end %>
+      <% else %>
+        <% @posts.each do |post| %>
+          <li class="media">
+            <div class="media-body">
+              <h3 class="media-heading">
+                <%= link_to "[#{post.category["name"]}] #{post["title"]}", post_path(post) %>
+              </h3>
+              <p align="justify"><strong><%= post["body"] %></strong></p>
+              <span><b>Updated on:</b> <%= post["updated_at"].in_time_zone("Central Time (US & Canada)").strftime("%m/%d/%Y at %I:%M%p") %></span>
+              <i class="fa fa-tags"></i> <b>Tags:</b> <% post.tags.each do |tag| %> <span class="label label-info"><%= tag["name"] %></span> <% end %>
+            </div>
+          </li>
+        <% end %>
       <% end %>
     </ul>
   </div>

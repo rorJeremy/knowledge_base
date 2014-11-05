@@ -4,3 +4,4 @@ json.tags @post.posts_tags do |assoc|
   json.id   assoc.tag.id
   json.name assoc.tag.name
 end
+json.category @post.category.name
