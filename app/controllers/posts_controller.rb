@@ -14,7 +14,7 @@ class PostsController < ApplicationController
       @posts = @response.records.map_with_hit do |post, hit|
         highlight = hit.highlight
         if highlight
-          Rails.logger.info "highlight(title: #{highlight.title.inspect}, body: #{highlight.body.inspect})"
+          # Rails.logger.info "highlight(title: #{highlight.title.inspect}, body: #{highlight.body.inspect})"
           post.title_highlighted = highlight.title[0] if highlight.title
           post.body_highlighted = highlight.body[0] if highlight.body
           post.category_highlighted = highlight.category_name[0] if highlight.category_name
@@ -31,8 +31,8 @@ class PostsController < ApplicationController
       @posts = @response
     end
 
-    Rails.logger.info "post titles " + ('~' * 100)
-    Rails.logger.info @posts.map { |p| p.title_highlighted.to_s }.join("\n")
+    # Rails.logger.info "post titles " + ('~' * 100)
+    # Rails.logger.info @posts.map { |p| p.title_highlighted.to_s }.join("\n")
 
     respond_to do |format|
       format.html # index.html.erb
