@@ -9,22 +9,23 @@ class PostsController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def index
-    # an example debug in the comment below
-    # d { "WE MADE IT" }
-
     @response, @show_every_post = posts_from_parameters
     if @show_every_post == false
-      @posts = @response.records
+      @posts = @response.records.map_with_hit do |post, hit|
+        highlight = hit.highlight
+        if highlight
+          Rails.logger.info "highlight(title: #{highlight.title.inspect}, body: #{highlight.body.inspect})"
+          post.title_highlighted = highlight.title[0] if highlight.title
+          post.body_highlighted = highlight.body[0] if highlight.body
+        end
+        post
+      end
     else
       @posts = @response
     end
-    # debugger
-    # @posts.each do |post|
-    #   post.title_tags = post.title
-    #   post.tags.each do |tag|
-    #     post.title_tags += ' ' + tag.name
-    #   end
-    # end
+
+    Rails.logger.info "post titles " + ('~' * 100)
+    Rails.logger.info @posts.map { |p| p.title_highlighted.to_s }.join("\n")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -95,13 +96,14 @@ class PostsController < ApplicationController
     end
   end
 
+  private
+
   def fetch_from_url(url)
     response = Net::HTTP.get_response(URI.parse(url))
     data = response.body
     JSON.parse(data)
   end
 
-  private
     def post_params
       params.required(:post).permit(:id, :title, :body, :category_id, :tag_ids => [])
     end

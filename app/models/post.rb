@@ -20,7 +20,7 @@ class Post < ActiveRecord::Base
 
   belongs_to :category
 
-  attr_accessor :title_tags
+  attr_accessor :title_highlighted, :body_highlighted
 
   settings index: { number_of_shards: 1 } do
     mappings dynamic: 'false' do
@@ -76,6 +76,8 @@ class Post < ActiveRecord::Base
           }
         },
         highlight: {
+          pre_tags: ['<em>'],
+          post_tags: ['</em>'],
           fields: {
             title: {},
             body: {},
