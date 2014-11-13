@@ -17,6 +17,13 @@ class PostsController < ApplicationController
           Rails.logger.info "highlight(title: #{highlight.title.inspect}, body: #{highlight.body.inspect})"
           post.title_highlighted = highlight.title[0] if highlight.title
           post.body_highlighted = highlight.body[0] if highlight.body
+          post.category_highlighted = highlight.category_name[0] if highlight.category_name
+          if highlight.tag_list
+            post.tags_highlighted = []
+            highlight.tag_list.each do |tag|
+              post.tags_highlighted << tag
+            end
+          end
         end
         post
       end
