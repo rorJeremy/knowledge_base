@@ -71,7 +71,7 @@ class Post < ActiveRecord::Base
         query: {
           multi_match: {
             query: query,
-            fuzziness: 1.0,
+            fuzziness: 1.5,
             fields: ['tag_list^10', 'category_name^8', 'title^5', 'body']
           }
         },
